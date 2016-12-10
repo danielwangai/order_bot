@@ -31,6 +31,13 @@ class InventoryDirectory
     current_file.each do |content|
       inventory_data.push(content.strip)
     end
+
+    # get rid of array elements containing _
+    inventory_data.each do |param|
+      if param.include? '_'
+        inventory_data.delete(param)
+      end
+    end
     inventory_data
   end
 end
