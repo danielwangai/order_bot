@@ -26,6 +26,8 @@ gem "erb2haml", :group => :development
 
 gem 'figaro'
 
+gem 'rufus-scheduler'
+
 group :development, :test do
 
   gem 'byebug', platform: :mri
