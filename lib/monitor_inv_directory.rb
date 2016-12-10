@@ -91,4 +91,12 @@ class InventoryDirectory
   def self.get_item(transaction_hash)
     item = transaction_hash["Item"]
   end
+
+  def self.get_quantity(transaction_hash)
+  	transaction_hash["Qty"]
+  end
+
+  def self.get_cost(transaction_hash)
+  	transaction_hash["Self"]
+  end
 end
