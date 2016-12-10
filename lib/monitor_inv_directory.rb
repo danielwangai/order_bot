@@ -10,13 +10,27 @@ class InventoryDirectory
 
     # loop through all files
     Dir.glob(directory) do |file|
-      file = file.split("INV")
+      # file = file.split("INV")
       # get rid of the / appearing before the filename
-      file[1][0] = ""
-      if !file[1].include? "$" # meaning its unprocessed
-        files_in_directory.push(file[1])
+      # file[1][0] = ""
+      if !file.include? "$" # meaning its unprocessed
+        files_in_directory.push(file)
       end
     end
     files_in_directory
+  end
+
+  def self.split_txt_file(inventory_file)
+    # rip the contents of transaction recorded in the inventory file.
+    # this method returns an array of inventory contents
+
+    inventory_data = []
+    current_file = File.read(inventory_file)
+    current_file = current_file.split(/\n/)
+
+    current_file.each do |content|
+      inventory_data.push(content.strip)
+    end
+    inventory_data
   end
 end
