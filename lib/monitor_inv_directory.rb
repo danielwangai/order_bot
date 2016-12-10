@@ -87,4 +87,8 @@ class InventoryDirectory
   	transaction_hash = Hash[transaction_keys.zip transaction_values]
   	transaction_hash
   end
+
+  def self.get_item(transaction_hash)
+    item = transaction_hash["Item"]
+  end
 end
