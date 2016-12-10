@@ -46,4 +46,21 @@ class InventoryDirectory
   	end
     inventory_data
   end
+
+
+  def self.get_date(inventory_data)
+    # date regex - dd/mm/yyyy
+    date_regex = /(\d{2})\/(\d{2})\/(\d{4})/
+  	trasaction_date = ""
+    inventory_data.each do |date|
+      if date[date_regex]
+  			trasaction_date = date
+  		end
+    end
+    # clean date
+  	# remove spaces
+  	trasaction_date = trasaction_date.strip
+  	# returning trasaction_date
+  	trasaction_date
+  end
 end
