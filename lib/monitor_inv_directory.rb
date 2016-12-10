@@ -38,6 +38,12 @@ class InventoryDirectory
         inventory_data.delete(param)
       end
     end
+
+    inventory_data.each do |param|
+  		if param.include? '-------'
+  			inventory_data.delete(param)
+  		end
+  	end
     inventory_data
   end
 end
