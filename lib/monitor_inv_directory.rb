@@ -63,4 +63,28 @@ class InventoryDirectory
   	# returning trasaction_date
   	trasaction_date
   end
+
+  def self.transation_items_hash(inventory_data)
+    transaction_keys = ""
+  	transaction_values = ""
+
+    inventory_data.each do |transaction|
+      if transaction.include? "Item                Qty"
+  			transaction_keys = transaction
+  		end
+    end
+    # get index of transaction keys
+    transaction_values_index = inventory_data.index(transaction_keys)
+
+    # get the array element of the values, comes after transaction_keys
+  	transaction_values = inventory_data[transaction_values_index + 1]
+
+    # split the string by a space to form an array
+  	transaction_keys = transaction_keys.split(' ')
+  	transaction_values = transaction_values.split(' ')
+
+    # create a hash using the two arrays
+  	transaction_hash = Hash[transaction_keys.zip transaction_values]
+  	transaction_hash
+  end
 end
