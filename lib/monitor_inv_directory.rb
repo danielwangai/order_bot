@@ -133,16 +133,28 @@ class InventoryDirectory
   	transaction_hash
 
   end
-  #
-  # def self.get_item(transaction_hash)
-  #   item = transaction_hash["Item"]
-  # end
-  #
-  # def self.get_quantity(transaction_hash)
-  # 	transaction_hash["Qty"]
-  # end
-  #
-  # def self.get_cost(transaction_hash)
-  # 	transaction_hash["Self"]
-  # end
+
+  def self.get_item(transaction_hash)
+    item = transaction_hash["Item"]
+  end
+
+  def self.get_quantity(transaction_hash)
+  	transaction_hash["Qty"]
+  end
+
+  def self.get_cost(transaction_hash)
+  	transaction_hash["Self"]
+  end
+
+  def self.get_total_cost(inventory_data)
+    total_cost = ""
+  	inventory_data.each do |total|
+  		if total.include? "TOTAL"
+  			total_cost = total
+  		end
+  	end
+  	# split to get rid of spaces
+  	total_cost = total_cost.split(' ')
+  	total_cost[1]
+  end
 end
