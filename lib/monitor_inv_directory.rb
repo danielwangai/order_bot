@@ -51,19 +51,30 @@ class InventoryDirectory
   def self.get_date(inventory_data)
     # date regex - dd/mm/yyyy
     date_regex = /(\d{2})\/(\d{2})\/(\d{4})/
-  	trasaction_date = ""
+  	transaction_date = ""
+    transaction_time = ""
+    transaction__time = []
+    item = ""
     inventory_data.each do |date|
       if date[date_regex]
-  			trasaction_date = date
+  			transaction_date = date
+        item = date
   		end
     end
     # clean date
   	# remove spaces
-  	trasaction_date = trasaction_date.strip
+  	transaction_date = transaction_date.strip
   	# returning trasaction_date
-  	trasaction_date
-  end
+  	# trasaction_date
+    item_array = item.split(date_regex)
+    item_array.last[0] = ""
+    transaction_time = item_array.last
 
+    # return array containting date and time
+    transaction__time = [transaction_date, transaction_time]
+    transaction__time
+  end
+  
   def self.transation_items(inventory_data)
     transaction_keys = ""
   	transaction_values = ""
