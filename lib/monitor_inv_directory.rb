@@ -47,6 +47,35 @@ class InventoryDirectory
     inventory_data
   end
 
+  def self.get_account_details(inventory_data)
+  	acc_key = ""
+  	acc_no = ""
+  	acc_name = ""
+  	re = /(\d+)/
+
+  	inventory_data.each do |account|
+  		if account.include? "ACCOUNT N0"
+  			acc_key = account
+  		end
+  	end
+  	acc_no = acc_key.strip.split(re).last
+
+  	# get index of transaction keys
+  	index = inventory_data.index(acc_key)
+
+  	# get the array element of the values, comes after transaction_keys
+  	acc_name = inventory_data[index + 1]
+  	account_array = acc_name.split(' ')
+  	name = ""
+
+  	account_array.each do |value|
+  		if account_array.index(value) > 1
+  			name.concat(" #{value}")
+  		end
+  	end
+  	[acc_no, name]
+  end
+
 
   def self.get_date(inventory_data)
     # date regex - dd/mm/yyyy
@@ -74,7 +103,7 @@ class InventoryDirectory
     transaction__time = [transaction_date, transaction_time]
     transaction__time
   end
-  
+
   def self.transation_items(inventory_data)
     transaction_keys = ""
   	transaction_values = ""
