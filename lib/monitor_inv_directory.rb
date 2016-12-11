@@ -80,26 +80,8 @@ class InventoryDirectory
     # get the array element of the values, comes after transaction_keys
   	transaction_values = inventory_data[transaction_values_index + 1]
 
-    # split the string by a space to form an array
-  	# transaction_keys = transaction_keys.split(' ')
-    # transaction_values = transaction_values.split(' ')
-
     transaction_details = [transaction_keys, transaction_values]
     transaction_details
-
-    # # ------------------------------------------------------
-    # # regular expression identifying
-    # re = /(\d+)/
-    # item_name = ""
-    # transaction_values.each do |value|
-    #   if !value[re]
-    #     item_name.concat(value + " ")
-    #   end
-    # end
-    #
-    # # create a hash using the two arrays
-  	# transaction_hash = Hash[transaction_keys.zip transaction_values]
-  	# transaction_hash
   end
 
   def self.transation_items_hash(transaction_items)
@@ -174,7 +156,7 @@ class InventoryDirectory
   			server_name.concat(" #{name}")
   		end
   	end
-    
+
   	server_name
   end
 end
