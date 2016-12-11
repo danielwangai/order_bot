@@ -157,4 +157,24 @@ class InventoryDirectory
   	total_cost = total_cost.split(' ')
   	total_cost[1]
   end
+
+  def self.get_served_by(inventory_data)
+    served_by = ""
+  	inventory_data.each do |user|
+  		if user.include? "Served by"
+  			served_by = user
+  		end
+  	end
+  	served_by = served_by.split(' ')
+  	# since servername could be longer i.e. more than one string
+  	server_name = ""
+  	if served_by.length > 2
+  		server = served_by.drop(2)
+  		server.each do |name|
+  			server_name.concat(" #{name}")
+  		end
+  	end
+    
+  	server_name
+  end
 end
