@@ -64,9 +64,10 @@ class InventoryDirectory
   	trasaction_date
   end
 
-  def self.transation_items_hash(inventory_data)
+  def self.transation_items(inventory_data)
     transaction_keys = ""
   	transaction_values = ""
+    transaction_details = []
 
     inventory_data.each do |transaction|
       if transaction.include? "Item                Qty"
@@ -80,23 +81,68 @@ class InventoryDirectory
   	transaction_values = inventory_data[transaction_values_index + 1]
 
     # split the string by a space to form an array
-  	transaction_keys = transaction_keys.split(' ')
-  	transaction_values = transaction_values.split(' ')
+  	# transaction_keys = transaction_keys.split(' ')
+    # transaction_values = transaction_values.split(' ')
+
+    transaction_details = [transaction_keys, transaction_values]
+    transaction_details
+
+    # # ------------------------------------------------------
+    # # regular expression identifying
+    # re = /(\d+)/
+    # item_name = ""
+    # transaction_values.each do |value|
+    #   if !value[re]
+    #     item_name.concat(value + " ")
+    #   end
+    # end
+    #
+    # # create a hash using the two arrays
+  	# transaction_hash = Hash[transaction_keys.zip transaction_values]
+  	# transaction_hash
+  end
+
+  def self.transation_items_hash(transaction_items)
+    transaction_keys = transaction_items[0]
+  	transaction_values = transaction_items[1]
+
+    # regular expression identifying
+    re = /(\d+)/
+    # this is the name of the item bought
+    item_name = transaction_values.split(re)[0]
+
+    transaction_header = transaction_keys.split(" ")
+    transaction_val = transaction_items[1].split(" ")
+    values_of_transaction = []
+    transaction_val.each do |s|
+      values_of_transaction.push(s.to_i)
+    end
+
+    values_of_transaction.each do |item|
+      until item > 0 do
+        values_of_transaction.delete(item)
+        break
+      end
+    end
+
+    values_of_transaction.insert(0, item_name.strip)
+    values_of_transaction.push(transaction_val.last)
 
     # create a hash using the two arrays
-  	transaction_hash = Hash[transaction_keys.zip transaction_values]
+  	transaction_hash = Hash[transaction_header.zip values_of_transaction]
   	transaction_hash
-  end
 
-  def self.get_item(transaction_hash)
-    item = transaction_hash["Item"]
   end
-
-  def self.get_quantity(transaction_hash)
-  	transaction_hash["Qty"]
-  end
-
-  def self.get_cost(transaction_hash)
-  	transaction_hash["Self"]
-  end
+  #
+  # def self.get_item(transaction_hash)
+  #   item = transaction_hash["Item"]
+  # end
+  #
+  # def self.get_quantity(transaction_hash)
+  # 	transaction_hash["Qty"]
+  # end
+  #
+  # def self.get_cost(transaction_hash)
+  # 	transaction_hash["Self"]
+  # end
 end
