@@ -10,15 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161211064541) do
+ActiveRecord::Schema.define(version: 20161211073948) do
 
   create_table "transactions", force: :cascade do |t|
     t.string   "time"
     t.string   "item"
     t.integer  "quantity"
-    t.decimal  "cost",       precision: 8, scale: 2
+    t.string   "cost"
     t.decimal  "decimal",    precision: 8, scale: 2
-    t.decimal  "total_cost", precision: 8, scale: 2
+    t.string   "total_cost"
     t.string   "served_by"
     t.datetime "created_at",                         null: false
     t.datetime "updated_at",                         null: false
