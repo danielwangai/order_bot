@@ -4,7 +4,6 @@ require 'monitor_inv_directory'
 scheduler = Rufus::Scheduler.new
 
 directory = ENV['INV_DIRECTORY_PATH'] + "*.TXT"
-inventory_files = InventoryDirectory.get_all_files(directory)
 
 # data = inventory_files[1]
 
@@ -13,6 +12,7 @@ Dir.chdir ENV['INV_DIRECTORY_PATH']
 
 scheduler.every '5s' do
   # sheduler to save transaction details
+  inventory_files = InventoryDirectory.get_all_files(directory)
 
   inventory_files.each do |inventory|
     # check if customer exists
