@@ -47,13 +47,13 @@ class InventoryDirectory
     inventory_data
   end
 
-  def self.get_account_details(inventory_data)
+  def seget_account_details
   	acc_key = ""
   	acc_no = ""
   	acc_name = ""
   	re = /(\d+)/
 
-  	inventory_data.each do |account|
+  	split_txt_file.each do |account|
   		if account.include? "ACCOUNT N0"
   			acc_key = account
   		end
@@ -61,10 +61,10 @@ class InventoryDirectory
   	acc_no = acc_key.strip.split(re).last
 
   	# get index of transaction keys
-  	index = inventory_data.index(acc_key)
+  	index = split_txt_file.index(acc_key)
 
   	# get the array element of the values, comes after transaction_keys
-  	acc_name = inventory_data[index + 1]
+  	acc_name = split_txt_file[index + 1]
   	account_array = acc_name.split(' ')
   	name = ""
 
