@@ -6,12 +6,11 @@ class TelegramController < ApplicationController
     chat_id = params["message"]["chat"]["id"]
     message = params["message"]["text"]
 
+    customer = Customer.find_by(telegram_id: chat_id)
     if message == "/start"
-      customer = Customer.find_by(telegram_id: chat_id)
-
       # if customer exists - other options
       if !customer.nil?
-        Telegram.send_message(chat_id, "Options ", true, [])
+        Telegram.send_message(chat_id, "Choose one of the following service options.", false, [['status'], ['No']])
       else
         # else prompt for account number
         Telegram.send_message(chat_id, "Key in your RedFlight account_number account_number.", true, [])
@@ -19,6 +18,10 @@ class TelegramController < ApplicationController
 
     elsif message.starts_with? "/ac"
       set_account_number message, chat_id
+    elsif message == "status" || message == "/status"
+      # get current_user id from telegram_id and use it to get cost
+      transaction = Transaction.where("customer_id = ?", customer.id).sum("total_cost")
+      Telegram.send_message(chat_id, "Your total expenduture is #{transaction}", true, [])
     end
     puts "----------#{chat_id}"
     render json: params
@@ -43,5 +46,9 @@ class TelegramController < ApplicationController
         Telegram.send_message(chat_id, "Thank you, #{customer_account.name} for your continued use of RedFlight Services.", true, [])
       end
     end
+  end
+
+  def check_account_status
+
   end
 end
