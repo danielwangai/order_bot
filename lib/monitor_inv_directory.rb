@@ -47,7 +47,7 @@ class InventoryDirectory
     inventory_data
   end
 
-  def seget_account_details
+  def self.get_account_details(split_txt_file)
   	acc_key = ""
   	acc_no = ""
   	acc_name = ""

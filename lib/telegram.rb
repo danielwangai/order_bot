@@ -18,16 +18,14 @@ class Telegram
 			hide_keyboard: true
 		)
 	end
-
-	def self.send_message chat_id, text, hide=true, options
+	
+	def self.send_message chat_id, text, hide=false, options
 		if hide
-			# if no options hide the keyboard
 			rm = hide_keyboard
 		else
-			# else display them
 			rm = reply_markup(options)
 		end
-		bot.send_message(chat_id: chat_id, text: text, rm: reply_markup)
+		bot.send_message(chat_id: chat_id, text: text, reply_markup:rm)
 	end
 
 	def self.set_webhook url
