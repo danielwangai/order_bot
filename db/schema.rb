@@ -10,13 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161216045227) do
+ActiveRecord::Schema.define(version: 20161216083224) do
 
   create_table "customers", force: :cascade do |t|
     t.string   "account_number"
     t.string   "name"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
+    t.string   "telegram_id"
   end
 
   create_table "transactions", force: :cascade do |t|
