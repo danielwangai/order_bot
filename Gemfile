@@ -28,6 +28,8 @@ gem 'figaro'
 
 gem 'rufus-scheduler'
 
+gem 'telegrammer'
+
 group :development, :test do
 
   gem 'byebug', platform: :mri
