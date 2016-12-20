@@ -1,6 +1,6 @@
 require 'rufus-scheduler'
 require 'monitor_inv_directory'
-
+require 'telegram'
 scheduler = Rufus::Scheduler.new
 
 directory = ENV['INV_DIRECTORY_PATH'] + "*.TXT"
@@ -31,6 +31,7 @@ scheduler.every '5s' do
     transaction.total_cost = InventoryDirectory.get_total_cost(data).to_f
     transaction.served_by = InventoryDirectory.get_served_by(data)
     transaction.customer_id = customer.id
+    transaction.is_paid = false
     transaction.save!
 
     # rename current file

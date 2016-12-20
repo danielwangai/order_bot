@@ -20,7 +20,7 @@ class TelegramController < ApplicationController
       set_account_number message, chat_id
     elsif message == "status" || message == "/status"
       # get current_user id from telegram_id and use it to get cost
-      transaction = Transaction.where("customer_id = ?", customer.id).sum("total_cost")
+      transaction = Transaction.where("customer_id = ? and is_paid = ?", customer.id, false).sum("total_cost")
       Telegram.send_message(chat_id, "Your total expenduture is #{transaction}", true, [])
     end
     puts "----------#{chat_id}"
