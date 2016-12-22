@@ -22,6 +22,11 @@ class TelegramController < ApplicationController
       # get current_user id from telegram_id and use it to get cost
       transaction = Transaction.where("customer_id = ? and is_paid = ?", customer.id, false).sum("total_cost")
       Telegram.send_message(chat_id, "Your total expenduture is #{transaction}", true, [])
+    elsif message == "Confirm"
+      # set confirmed to true
+      transaction = Transaction.find_by(customer_id: customer.id)
+      transaction.update(confirmation_message_sent: true)
+      Telegram.send_message(chat_id, "Order is confirmed.", true, [])
     end
     puts "----------#{chat_id}"
     render json: params

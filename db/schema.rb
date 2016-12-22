@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161219184631) do
+ActiveRecord::Schema.define(version: 20161222044738) do
 
   create_table "customers", force: :cascade do |t|
     t.string   "account_number"
@@ -25,14 +25,15 @@ ActiveRecord::Schema.define(version: 20161219184631) do
     t.string   "item"
     t.integer  "quantity"
     t.string   "cost"
-    t.decimal  "decimal",     precision: 8, scale: 2
+    t.decimal  "decimal",                   precision: 8, scale: 2
     t.string   "total_cost"
     t.string   "served_by"
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
+    t.datetime "created_at",                                        null: false
+    t.datetime "updated_at",                                        null: false
     t.integer  "customer_id"
     t.boolean  "confirmed"
     t.boolean  "is_paid"
+    t.boolean  "confirmation_message_sent"
     t.index ["customer_id"], name: "index_transactions_on_customer_id"
   end
 
