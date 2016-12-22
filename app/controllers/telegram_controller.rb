@@ -27,6 +27,11 @@ class TelegramController < ApplicationController
       transaction = Transaction.where(customer_id: customer.id).last
       transaction.update(confirmation_message_sent: true)
       Telegram.send_message(chat_id, "Order is confirmed.", true, [])
+    elsif message == "Deny"
+      # delete latest record
+      transaction = Transaction.where(customer_id: customer.id).last
+      transaction.destroy
+      Telegram.send_message(chat_id, "The order was successfully retracted.", true, [])
     end
     puts "----------#{chat_id}"
     render json: params
