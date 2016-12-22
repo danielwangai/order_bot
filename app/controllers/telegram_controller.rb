@@ -24,7 +24,7 @@ class TelegramController < ApplicationController
       Telegram.send_message(chat_id, "Your total expenduture is #{transaction}", true, [])
     elsif message == "Confirm"
       # set confirmed to true
-      transaction = Transaction.find_by(customer_id: customer.id)
+      transaction = Transaction.where(customer_id: customer.id).last
       transaction.update(confirmation_message_sent: true)
       Telegram.send_message(chat_id, "Order is confirmed.", true, [])
     end
