@@ -41,7 +41,7 @@ scheduler.every '5s' do
 
     # add purchase confirmation
     if customer.transactions.find_by(id: transaction.id).confirmation_message_sent == false
-      Telegram.send_message(customer.telegram_id, "You have bought #{transaction.item} costing #{transaction.cost}.\nTotal cost #{transaction.total_cost}\nYes for true No for false.", false, [['Confirm'], ['Deny']])
+      Telegram.send_message(customer.telegram_id, "You have bought #{transaction.item} costing #{transaction.cost}.\nTotal cost #{transaction.total_cost}\nSelect Confirm for Yes or Deny for No.", false, [['Confirm'], ['Deny']])
       # transaction.update(confirmation_message_sent: true)
     end
   end
