@@ -10,7 +10,7 @@ class TelegramController < ApplicationController
     if message == "/start"
       # if customer exists - other options
       if !customer.nil?
-        Telegram.send_message(chat_id, "Choose one of the following service options.", false, [['status'], ['No']])
+        Telegram.send_message(chat_id, "Choose one of the following service options.", false, [['status'], ['Other options']])
       else
         # else prompt for account number
         Telegram.send_message(chat_id, "Key in your RedFlight account_number account_number.", true, [])
@@ -32,6 +32,10 @@ class TelegramController < ApplicationController
       transaction = Transaction.where(customer_id: customer.id).last
       transaction.destroy
       Telegram.send_message(chat_id, "The order was successfully retracted.", true, [])
+    elsif message == "/help"
+      Telegram.send_message(chat_id, "Redflight Help Menu.\n/status - Check your unpaid dues since last payment date.\n", true, [])
+    else
+      Telegram.send_message(chat_id, "Wrong command", true, [])
     end
     puts "----------#{chat_id}"
     render json: params
